@@ -1,2 +1,6 @@
 *.class
 target/
+.classpath
+.factorypath
+.project
+.settings/

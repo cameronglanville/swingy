@@ -8,9 +8,9 @@ GUI applications with the SWING framework. Implement a minimalistic text-based R
 
 ## Compiling using javac and java
 
-find -name *.java > sources.txt
-javac @sources.txt
-java ...
+- find -name *.java > sources.txt
+- javac @sources.txt
+- java ...
 
 ## Using Maven to build the project
 
