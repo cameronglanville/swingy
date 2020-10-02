@@ -9,7 +9,7 @@ public class Hero extends Creature{
 
     //fighter / rogue / wizard
     @NotNull(message = "Jop cannot be null")
-    @Size(min = 2, message = "Job must have at least 2 charatcers")
+    @Size(min = 2, message = "Job must have at least 2 characters")
     private String job;
 
     @Min(value = 0, message = "Exp can't be less than 0")

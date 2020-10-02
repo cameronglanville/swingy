@@ -18,8 +18,15 @@ mvn archetype:generate -DgroupId=com.cglanvil.app -DartifactId=swingy -Darchetyp
 
 ## Using Maven to build the jar file
 
-mvn package
+mvn clean package
 
 ## Running the jar
 
 java -jar target/swingy-1.0-SNAPSHOT.jar 
+
+## To do
+
+- need to get validation working - wait a bit
+- need to add more views - don't think I do
+- need to combine models - done
+- model needs useful functions

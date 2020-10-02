@@ -3,7 +3,7 @@ package com.cglanvil.app;
 import java.util.Scanner;
 
 import com.cglanvil.app.controller.GameController;
-import com.cglanvil.app.model.Hero;
+import com.cglanvil.app.model.GameModel;
 import com.cglanvil.app.view.GameView;
 
 public class App {
@@ -27,11 +27,12 @@ public class App {
 
         //initiate everything
         Scanner scan = new Scanner(System.in);
-        String input;
+        //String input;
         String name;
         String job;
+
         //create an empty model
-        Hero model = new Hero();
+        GameModel model = new GameModel();
         // create a view
         GameView view = new GameView();
         //create a controller
@@ -39,49 +40,12 @@ public class App {
 
         //capture hero name
         System.out.println("Please input a name:");
-        // System.out.println("E(x)it");
-        input = scan.nextLine();
-        name = input;
-        controller.setHeroName(name);
-        // if (input.equals("x")) {
-        //     scan.close();
-        //     return;
-        // } else {
-        //     name = input;
-        // }
+        name = scan.nextLine();
         System.out.println("Please input a job:");
-        // System.out.println("E(x)it");
-        input = scan.nextLine();
-        job = input;
-        controller.setHeroJob(job);
-        // if (input.equals("x")) {
-        //     scan.close();
-        //     return;
-        // } else {
-        //     job = input;
-        // }
-        // System.out.println("Creating your hero: " + name + " the " + job);
-        // create a hero
-        //Hero model = createHero(name, job);
-        // create a view
-        // GameView view = new GameView();
-        // GameController controller = new GameController(model, view);
+        job = scan.nextLine();
+        controller.setHero(name, job);
         controller.updateView();
-
         scan.close();
         // System.out.println("Yay, you got to the end!");
     }
-
-    // private static Hero createHero(String name, String job) {
-    //     Hero hero = new Hero();
-    //     hero.setName(name);
-    //     hero.setJob(job);
-    //     hero.setLevel(1);
-    //     hero.setExp(0);
-    //     hero.setHp(100);
-    //     hero.setCurrentHp(100);
-    //     hero.setAtk(10);
-    //     hero.setDef(10);
-    //     return hero;
-    // }
 }
