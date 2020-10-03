@@ -1,6 +1,12 @@
 package com.cglanvil.app;
 
 import java.util.Scanner;
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
 import com.cglanvil.app.controller.GameController;
 import com.cglanvil.app.model.GameModel;
@@ -25,25 +31,42 @@ public class App {
             return;
         }
 
-        //initiate everything
+        // initiate everything
         Scanner scan = new Scanner(System.in);
-        //String input;
+        // String input;
         String name;
         String job;
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
 
-        //create an empty model
+        // create an empty model
         GameModel model = new GameModel();
         // create a view
         GameView view = new GameView();
-        //create a controller
+        // create a controller
         GameController controller = new GameController(model, view);
 
-        //capture hero name
-        System.out.println("Please input a name:");
-        name = scan.nextLine();
+        // capture hero name
+        Set<ConstraintViolation<GameModel>> nameViolations = validator.validateProperty(model, "name");
+        while (nameViolations.size() != 0) {
+            System.out.println("Please input a name:");
+            name = scan.nextLine();
+            controller.setName(name);
+            nameViolations = validator.validateProperty(model, "name");
+            if (nameViolations.size() != 0) {
+                System.out.println(nameViolations);
+            }
+        }
+
+        // Set<ConstraintViolation<GameModel>> violations = validator.validate(model);
+        // for (ConstraintViolation<GameModel> violation : violations) {
+        // System.out.println(violation.getMessage());
+        // }
+
         System.out.println("Please input a job:");
         job = scan.nextLine();
-        controller.setHero(name, job);
+        controller.setJob(job);
+        controller.createHero();
         controller.updateView();
         scan.close();
         // System.out.println("Yay, you got to the end!");

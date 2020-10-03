@@ -4,14 +4,17 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 
 public class GameModel {
 
     @NotNull(message = "Name cannot be null")
+    @NotEmpty(message = "Name cannot be empty")
     @Size(min = 2, message = "Name must have at least 2 character")
     protected String name;
 
-    @NotNull(message = "Jop cannot be null")
+    //@NotNull(message = "Jop cannot be null")
+    @NotEmpty(message = "Jop cannot be null")
     @Size(min = 2, message = "Job must have at least 2 characters")
     protected String job;
 
@@ -46,9 +49,15 @@ public class GameModel {
 
     protected char[][] map;
 
-    public void createHero(String name, String job) {
+    public void setName(String name) {
         this.name = name;
+    }
+
+    public void setJob(String job) {
         this.job = job;
+    }
+
+    public void createHero() {
         this.level = 1;
         this.exp = 0;
         this.expToLevel = (int) (this.level * 1000 + 450 * Math.pow(this.level - 1, 2));

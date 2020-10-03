@@ -12,8 +12,16 @@ public class GameController {
         this.view = view;
     }
 
-    public void setHero(String name, String job) {
-        model.createHero(name, job);
+    public void setName(String name) {
+        model.setName(name);
+    }
+
+    public void setJob(String job) {
+        model.setJob(job);
+    }
+
+    public void createHero() {
+        model.createHero();
     }
 
     public void updateView() {
