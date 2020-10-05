@@ -28,10 +28,8 @@ java -jar target/swingy-1.0-SNAPSHOT-jar-with-dependencies.jar console
 
 ## To do
 
-- Hibernate Validator
 - need to get validation working
-- - Hibernate Validator 6
-- - GlassFish 5
-- need to add more views - don't think I do
-- need to combine models - done
+- - Hibernate Validator 6 | working
+- - GlassFish 5 | added, not using atm
+- need to combine models | done
 - model needs useful functions
