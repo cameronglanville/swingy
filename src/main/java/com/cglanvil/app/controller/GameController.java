@@ -1,6 +1,6 @@
 package com.cglanvil.app.controller;
 
-import java.util.Arrays;
+//import java.util.Arrays;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -47,7 +47,7 @@ public class GameController {
         view.setFooter("Please input a name:");
         while (propertyViolations.size() != 0) {
             view.gameView();
-            model.setName(scan.nextLine());
+            model.setName(scan.nextLine().trim());
             propertyViolations = validator.validateProperty(model, "name");
             if (propertyViolations.size() != 0) {
                 for (ConstraintViolation<GameModel> violation : propertyViolations) {
@@ -77,12 +77,14 @@ public class GameController {
         }
 
         model.createHero();
-        // model.createMap();
-        // System.out.println(Arrays.toString(model.getMap()));
-        //view.setBody(model.getMap());
-        view.setFooter("");
-
-        updateView();
+        model.createMap();
+        //Arrays.deepToString(); && Arrays.toString()
+        view.setFooter("WASD for movement. E(x)it.");
+        while (!input.equals("x")) {
+            updateView();
+            input = scan.nextLine();
+            model.handleMovement(input);
+        }
 
         scan.close(); // must be at the ends
     }
@@ -101,7 +103,7 @@ public class GameController {
 
     public void updateView() {
         view.setStatus(model.getStatus());
-        // view.setBody("testing");
+        view.setBody(model.getMap());
         // view.setFooter("options");
         view.gameView();
     }

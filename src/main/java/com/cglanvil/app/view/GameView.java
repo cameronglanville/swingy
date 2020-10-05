@@ -2,7 +2,7 @@ package com.cglanvil.app.view;
 
 public class GameView { // good
 
-    private String header;
+    private final String header;
     private String status; // characters status
     private String body;
     private String footer;
@@ -20,14 +20,8 @@ public class GameView { // good
         this.status = status;
     }
 
-    public void setBody(char[][] body) {
-        this.body = "";
-        for (int i = 0; body[i][0] != '\0'; i++) {
-            if (i != 0) {
-                this.body += "\n";
-            }
-            this.body += body[i];
-        }
+    public void setBody(String body) {
+        this.body = body;
     }
 
     public void setFooter(String footer) {
