@@ -79,7 +79,7 @@ public class GameController {
         model.createHero();
         model.createMap();
         //Arrays.deepToString(); && Arrays.toString()
-        view.setFooter("WASD for movement. E(x)it.");
+        view.setFooter("Get to the edge of the Map\nWASD for movement. E(x)it.");
         while (!input.equals("x")) {
             updateView();
             input = scan.nextLine();
@@ -89,21 +89,9 @@ public class GameController {
         scan.close(); // must be at the ends
     }
 
-    // public void setName(String name) {
-    // model.setName(name);
-    // }
-
-    // public void setJob(String job) {
-    // model.setJob(job);
-    // }
-
-    // public void createHero() {
-    // model.createHero();
-    // }
-
     public void updateView() {
         view.setStatus(model.getStatus());
-        view.setBody(model.getMap());
+        view.setBody(model.getMap2());
         // view.setFooter("options");
         view.gameView();
     }

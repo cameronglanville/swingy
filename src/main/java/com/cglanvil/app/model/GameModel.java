@@ -74,10 +74,14 @@ public class GameModel {
         this.job = job;
     }
 
+    private void setExpToLevel() {
+        this.expToLevel = (int) (this.level * 1000 + 450 * Math.pow(this.level - 1, 2));
+    }
+
     public void createHero() {
         this.level = 1;
         this.exp = 0;
-        this.expToLevel = (int) (this.level * 1000 + 450 * Math.pow(this.level - 1, 2));
+        setExpToLevel();
         if (this.job.equals("Rogue")) {
             this.atk = 2;
             this.def = 1;
@@ -89,68 +93,125 @@ public class GameModel {
         this.hp = 10;
     }
 
+    private void levelUp() {
+        if (this.exp >= this.expToLevel) {
+            this.level += 1;
+            setExpToLevel();
+            levelUp();
+        }
+    }
+
+    public void gainExp(int exp) {
+        this.exp += exp;
+        levelUp();
+    }
+
     public void createMap() {
         this.mapSize = (this.level - 1) * 5 + 10 - (this.level % 2);
         map = new char[this.mapSize][this.mapSize];
         int x = 0;
         int y = 0;
-        while (x < this.mapSize) {
-            while (y < this.mapSize) {
-                map[x][y] = '_';
-                y++;
+        int random_int;
+        while (y < this.mapSize) {
+            while (x < this.mapSize) {
+                random_int = (int) (Math.random() * 2);
+                if (random_int == 0) {
+                    map[y][x] = '·';
+                } else if (random_int == 1) {
+                    map[y][x] = ' ';
+                } else if (random_int == 2) {
+                    map[y][x] = '-';
+                } else if (random_int == 3) {
+                    map[y][x] = '+';
+                } else {
+                    map[y][x] = '?';
+                }
+                x++;
             }
-            y = 0;
-            x++;
+            x = 0;
+            y++;
         }
         this.x = this.mapSize / 2;
         this.y = this.x;
-        map[this.x][this.y] = 'H';
     }
 
     public String getMap() {
         String mapAsString = "";
         int i = 0;
         int j = 0;
-        while (i < this.mapSize) {
-            if (i != 0) {
+        while (j < this.mapSize) {
+            if (j != 0) {
                 mapAsString += "\n";
             }
-            while (j < this.mapSize) {
-                if (j == 0) {
-                    mapAsString += "|";
+            while (i < this.mapSize) {
+                mapAsString += "  ";
+                if (i == this.x && j == this.y) {
+                    mapAsString += 'H';
                 } else {
-                    mapAsString += " |";
+                    mapAsString += map[j][i];
                 }
-                mapAsString += map[i][j];
-                j++;
+                i++;
             }
-            j = 0;
-            i++;
+            i = 0;
+            j++;
+        }
+        return mapAsString;
+    }
+
+    public String getMap2() {
+        String mapAsString = "";
+        int i = x - 5;
+        int j = y - 5;
+        while (j <= y + 5) {
+            if (j != y - 5) {
+                mapAsString += "\n";
+            }
+            while (i <= x + 5) {
+                if (i == x - 5) {
+                    mapAsString += " ";
+                } else {
+                    mapAsString += "  ";
+                }
+                if (i == this.x && j == this.y) {
+                    mapAsString += 'H';
+                } else if (i < 0 || i >= this.mapSize || j < 0 || j >= this.mapSize) {
+                    mapAsString += ' ';
+                } else {
+                    mapAsString += map[j][i];
+                }
+                i++;
+            }
+            i = x - 5;
+            j++;
         }
         return mapAsString;
     }
 
     public void handleMovement(String input) {
-        if (input.equalsIgnoreCase("w") || input.equalsIgnoreCase("a") || input.equalsIgnoreCase("s") || input.equalsIgnoreCase("d")) {
-            this.map[this.x][this.y] = '_';
+        if (input.equalsIgnoreCase("w") || input.equalsIgnoreCase("a") || input.equalsIgnoreCase("s")
+                || input.equalsIgnoreCase("d")) {
+            // this.map[this.y][this.x] = '_';
             if (input.equalsIgnoreCase("w")) {
-                if (this.x != 0) {
-                    this.x -= 1;
-                }
-            } else if (input.equalsIgnoreCase("a")) {
                 if (this.y != 0) {
                     this.y -= 1;
                 }
-            } else if (input.equalsIgnoreCase("s")) {
-                if (this.x != this.mapSize - 1) {
-                    this.x += 1;
+            } else if (input.equalsIgnoreCase("a")) {
+                if (this.x != 0) {
+                    this.x -= 1;
                 }
-            } else if (input.equalsIgnoreCase("d")) {
+            } else if (input.equalsIgnoreCase("s")) {
                 if (this.y != this.mapSize - 1) {
                     this.y += 1;
                 }
+            } else if (input.equalsIgnoreCase("d")) {
+                if (this.x != this.mapSize - 1) {
+                    this.x += 1;
+                }
             }
-            this.map[this.x][this.y] = 'H';
+            if (x == 0 || x == this.mapSize - 1 || y == 0 || y == this.mapSize - 1) {
+                gainExp(100);
+                createMap();
+            }
         }
     }
 
@@ -163,7 +224,7 @@ public class GameModel {
     }
 
     public String getStatus() {
-        return this.name + " the " + this.job + "\nlevel " + this.level + " " + this.exp + "/" + this.expToLevel
+        return this.name + " level " + this.level + " " + this.job + "\nexp " + this.exp + "/" + this.expToLevel
                 + "\nHp: " + this.currentHp + "/" + this.hp + " Atk: " + this.atk + " Def: " + this.def;
     }
 
