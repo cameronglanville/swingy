@@ -10,7 +10,6 @@ public class GameView { // good
     public GameView() {
         this.header = " ___ _ _ _  _ ._ _  ___  _ _ \n" + "<_-<| | | |<_>| ' |/ . || | |\n"
                 + "/__/|__/_/ |_||_|_|\\_. |`_. |\n" + "cglanvil           <___'<___'";
-        // this.header = "Swingy\ncglanvil (Cameron Glanville)";
         this.status = "";
         this.body = "";
         this.footer = "";
@@ -32,8 +31,7 @@ public class GameView { // good
         System.out.println(errorMessage);
     }
 
-    public void gameView() {
-
+    public void refreshView() {
         System.out.println("----------------------------------\n" + header + "\n----------------------------------");
         if (!"".equals(status)) {
             System.out.println(status + "\n----------------------------------");

@@ -19,17 +19,17 @@ mvn archetype:generate -DgroupId=com.cglanvil.app -DartifactId=swingy -Darchetyp
 ## Using Maven to build the jar file
 
 mvn clean package
-mvn clean compile assembly:single | now runs when previous command is run
 
 ## Running the jar
 
 java -jar target/swingy-1.0-SNAPSHOT.jar console
-java -jar target/swingy-1.0-SNAPSHOT-jar-with-dependencies.jar console
 
 ## To do
 
 - need to get validation working
 - - Hibernate Validator 6 | working
-- - GlassFish 5 | added, not using atm
+- - GlassFish 5 | added
 - need to combine models | done
-- model needs useful functions
+- model needs useful functions | done
+- combat | done
+- save & load
