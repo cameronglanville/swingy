@@ -141,7 +141,7 @@ public class GameController {
     private void mapView() {
         view.setStatus(model.getStatus());
         view.setBody(model.getMap2());
-        view.setFooter("Get to the edge of the Map\nWASD for movement. E(x)it.");
+        view.setFooter("Get to the edge of the map to complete the mission\nWASD for movement. E(x)it.");
         view.refreshView();
     }
 
